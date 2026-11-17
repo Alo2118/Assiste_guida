@@ -83,5 +83,6 @@ dialog label { display: block; margin: 10px 0; }
 dialog label.spunta { display: flex; align-items: center; gap: 8px; }
 dialog input[type=number] { width: 90px; font-size: 18px; padding: 6px; margin-left: 6px; }
 dialog input[type=range] { width: 100%; }
+dialog select { font-size: 16px; padding: 6px; margin-top: 4px; display: block; }
 dialog input[type=checkbox] { width: 22px; height: 22px; }
 dialog .pulsanti { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }

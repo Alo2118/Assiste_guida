@@ -77,6 +77,13 @@
     <label>Altezza del telefono da terra (m)
       <input id="iAltezza" type="number" min="0.5" max="3" step="0.05"></label>
     <label class="spunta"><input id="iTutti" type="checkbox"> Mostra tutti gli oggetti riconosciuti</label>
+    <label>Motore di calcolo (vale dal prossimo avvio)
+      <select id="iMotore">
+        <option value="auto">Automatico (consigliato)</option>
+        <option value="webgpu">WebGPU</option>
+        <option value="webgl">WebGL</option>
+        <option value="cpu">CPU (lento)</option>
+      </select></label>
     <hr>
     <p class="piccola">Prova da fermo: usa una velocità finta al posto del GPS.</p>
     <label class="spunta"><input id="iManuale" type="checkbox"> Velocità manuale</label>
@@ -86,6 +93,7 @@
   </dialog>
 
   <script src="vendor/tf.min.js"></script>
+  <script src="vendor/tf-backend-webgpu.min.js"></script>
   <script src="vendor/coco-ssd.min.js"></script>
   <script type="module" src="app.js"></script>
 </body>

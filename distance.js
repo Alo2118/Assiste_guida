@@ -27,10 +27,21 @@ export function setAltezzaTelefono(m) { cal.altezza = m; salva(); }
 export function resetCalibrazione() { cal = { altezza: cal.altezza }; salva(); }
 
 // Focale in pixel: dalla calibrazione o, se manca, dall'angolo di visione ipotizzato.
-function focalePx(larghezzaImg) {
+export function focalePx(larghezzaImg) {
   if (cal.focaleNorm) return cal.focaleNorm * larghezzaImg;
   const fov = CONFIG.fovOrizzontaleDefault * Math.PI / 180;
   return (larghezzaImg / 2) / Math.tan(fov / 2);
+}
+
+// Riga dell'orizzonte in pixel (null se non calibrata)
+export function orizzontePx(altezzaImg) {
+  return cal.orizzonteNorm == null ? null : cal.orizzonteNorm * altezzaImg;
+}
+
+// Spostamento laterale (metri) del centro di un oggetto rispetto al telefono.
+export function lateraleMetri(ogg, distanza, larghezzaImg) {
+  const [x, , w] = ogg.bbox;
+  return ((x + w / 2) - larghezzaImg / 2) * distanza / focalePx(larghezzaImg);
 }
 
 /**
@@ -57,9 +68,10 @@ export function stima(ogg, larghezzaImg, altezzaImg) {
     if (dy > 2) dTerra = (f * cal.altezza) / dy;
   }
 
-  // Un oggetto tagliato dal bordo dell'immagine ha larghezza falsata:
-  // in quel caso ci si fida di più del metodo "terra".
-  const tagliato = x < 2 || x + w > larghezzaImg - 2;
+  // Un oggetto tagliato ai lati ha larghezza falsata: ci si fida di più del
+  // metodo "terra". Se è tagliato in basso, il metodo "terra" è falsato.
+  const tagliato = ogg.tagliatoLati ?? (x < 2 || x + w > larghezzaImg - 2);
+  if (ogg.tagliatoSotto) dTerra = null;
 
   let d = dLarg;
   if (dTerra != null) {

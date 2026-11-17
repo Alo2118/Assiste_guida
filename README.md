@@ -14,7 +14,7 @@ Funziona offline dopo il primo caricamento. **Non è un sistema di sicurezza.**
 | `config.js` | **Tutti i parametri regolabili** (soglie, distanze, avvisi) |
 | `app.js` | Programma principale: fotocamera → riconoscimento → schermo |
 | `distance.js` | Stima della distanza (da sostituire per la versione a due camere) |
-| `acc.js` | Scelta del veicolo davanti, velocità relativa, logica ACC |
+| `acc.js` | Inseguimento oggetti, filtro contromano, veicolo davanti, logica ACC |
 | `dispositivo.js` | GPS, schermo acceso, suoni |
 | `sw.js` | Funzionamento offline (aumentare `VERSIONE` a ogni modifica) |
 | `vendor/` | Librerie TensorFlow.js e modello COCO-SSD (copia locale) |
